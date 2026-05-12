@@ -3,46 +3,103 @@ import { useState } from "react";
 const INITIAL_LEARNED = [];
 
 const ALL_LETTERS = [
-  { arm: "Աա", small: "ա", rus: "а" },
-  { arm: "Բբ", small: "բ", rus: "б" },
-  { arm: "Գգ", small: "գ", rus: "г" },
-  { arm: "Դդ", small: "դ", rus: "д" },
-  { arm: "Եե", small: "ե", rus: "е" },
-  { arm: "Զզ", small: "զ", rus: "з" },
-  { arm: "Էէ", small: "է", rus: "э" },
-  { arm: "Ըը", small: "ը", rus: "ы" },
-  { arm: "Թթ", small: "թ", rus: "т'" },
-  { arm: "Ժժ", small: "ժ", rus: "ж" },
-  { arm: "Իի", small: "ի", rus: "и" },
-  { arm: "Լլ", small: "լ", rus: "л" },
-  { arm: "Խխ", small: "խ", rus: "х" },
-  { arm: "Ծծ", small: "ծ", rus: "ц" },
-  { arm: "Կկ", small: "կ", rus: "к" },
-  { arm: "Հհ", small: "հ", rus: "h" },
-  { arm: "Ձձ", small: "ձ", rus: "дз" },
-  { arm: "Ղղ", small: "ղ", rus: "гх" },
-  { arm: "Ճճ", small: "ճ", rus: "ч'" },
-  { arm: "Մմ", small: "մ", rus: "м" },
-  { arm: "Յյ", small: "յ", rus: "й" },
-  { arm: "Նն", small: "ն", rus: "н" },
-  { arm: "Շշ", small: "շ", rus: "ш/щ" },
-  { arm: "Ոոо", small: "ո", rus: "во/о" },
-  { arm: "Չչ", small: "չ", rus: "ч" },
-  { arm: "Պպ", small: "պ", rus: "п" },
-  { arm: "Ջջ", small: "ջ", rus: "дж" },
-  { arm: "Ռռ", small: "ռ", rus: "рр" },
-  { arm: "Սс", small: "ս", rus: "с" },
-  { arm: "Վվ", small: "վ", rus: "в" },
-  { arm: "Տտ", small: "տ", rus: "т" },
-  { arm: "Րр", small: "ր", rus: "р" },
-  { arm: "Ցց", small: "ց", rus: "ц'" },
-  { arm: "Ււ", small: "ւ", rus: "в" },
-  { arm: "Փփ", small: "փ", rus: "п'" },
-  { arm: "Քք", small: "ք", rus: "к'" },
-  { arm: "Օօ", small: "օ", rus: "о" },
-  { arm: "Ֆֆ", small: "ֆ", rus: "ф" },
-  { arm: "Უუ", small: "ու", rus: "у" },
+  { arm: "Աա", small: "ա", rus: "а", eng: "a", fra: "a" },
+  { arm: "Բբ", small: "բ", rus: "б", eng: "b", fra: "b" },
+  { arm: "Գգ", small: "գ", rus: "г", eng: "g", fra: "g" },
+  { arm: "Դդ", small: "դ", rus: "д", eng: "d", fra: "d" },
+  { arm: "Եե", small: "ե", rus: "е", eng: "ye", fra: "yé" },
+  { arm: "Զզ", small: "զ", rus: "з", eng: "z", fra: "z" },
+  { arm: "Էէ", small: "է", rus: "э", eng: "e", fra: "é" },
+  { arm: "Ըը", small: "ը", rus: "ы", eng: "uh", fra: "eu" },
+  { arm: "Թթ", small: "թ", rus: "т'", eng: "t'", fra: "t'" },
+  { arm: "Ժժ", small: "ժ", rus: "ж", eng: "zh", fra: "j" },
+  { arm: "Իի", small: "ի", rus: "и", eng: "i", fra: "i" },
+  { arm: "Լլ", small: "լ", rus: "л", eng: "l", fra: "l" },
+  { arm: "Խխ", small: "խ", rus: "х", eng: "kh", fra: "kh" },
+  { arm: "Ծծ", small: "ծ", rus: "ц", eng: "ts", fra: "ts" },
+  { arm: "Կկ", small: "կ", rus: "к", eng: "k", fra: "k" },
+  { arm: "Հհ", small: "հ", rus: "h", eng: "h", fra: "h" },
+  { arm: "Ձձ", small: "ձ", rus: "дз", eng: "dz", fra: "dz" },
+  { arm: "Ղղ", small: "ղ", rus: "гх", eng: "gh", fra: "gh" },
+  { arm: "Ճճ", small: "ճ", rus: "ч'", eng: "ch'", fra: "tch'" },
+  { arm: "Մմ", small: "մ", rus: "м", eng: "m", fra: "m" },
+  { arm: "Յյ", small: "յ", rus: "й", eng: "y", fra: "y" },
+  { arm: "Նն", small: "ն", rus: "н", eng: "n", fra: "n" },
+  { arm: "Շշ", small: "շ", rus: "ш/щ", eng: "sh", fra: "ch" },
+  { arm: "Ոոо", small: "ո", rus: "во/о", eng: "vo/o", fra: "vo/o" },
+  { arm: "Չչ", small: "չ", rus: "ч", eng: "ch", fra: "tch" },
+  { arm: "Պպ", small: "պ", rus: "п", eng: "p", fra: "p" },
+  { arm: "Ջջ", small: "ջ", rus: "дж", eng: "j", fra: "dj" },
+  { arm: "Ռռ", small: "ռ", rus: "рр", eng: "rr", fra: "rr" },
+  { arm: "Սс", small: "ս", rus: "с", eng: "s", fra: "s" },
+  { arm: "Վվ", small: "վ", rus: "в", eng: "v", fra: "v" },
+  { arm: "Տտ", small: "տ", rus: "т", eng: "t", fra: "t" },
+  { arm: "Րр", small: "ր", rus: "р", eng: "r", fra: "r" },
+  { arm: "Ցց", small: "ց", rus: "ц'", eng: "ts'", fra: "ts'" },
+  { arm: "Ււ", small: "ւ", rus: "в", eng: "v", fra: "v" },
+  { arm: "Փփ", small: "փ", rus: "п'", eng: "p'", fra: "p'" },
+  { arm: "Քք", small: "ք", rus: "к'", eng: "k'", fra: "k'" },
+  { arm: "Օօ", small: "օ", rus: "о", eng: "o", fra: "o" },
+  { arm: "Ֆֆ", small: "ֆ", rus: "ф", eng: "f", fra: "f" },
+  { arm: "Უუ", small: "ու", rus: "у", eng: "u", fra: "ou" },
 ];
+
+const TRANSLATIONS = {
+  rus: {
+    title: "Армянский алфавит · 38 букв",
+    know: "Знаю",
+    left: "Осталось",
+    progress: "Прогресс",
+    table: "Таблица",
+    cards: "Карточки",
+    all: "Все",
+    learned: "Знаю",
+    notLearned: "Не знаю",
+    tapHint: "нажми на букву · отметить / снять отметку",
+    flipHint: "нажми · перевернуть",
+    arrowHint: "← стрелки или нажми на карточку",
+    markBtn: "+ Отметить как выученную",
+    unmarkBtn: "✓ Знаю · убрать",
+    familiar: "✓ Знакомая",
+    langLabel: "РУ",
+  },
+  eng: {
+    title: "Armenian Alphabet · 38 letters",
+    know: "Known",
+    left: "Remaining",
+    progress: "Progress",
+    table: "Grid",
+    cards: "Flashcards",
+    all: "All",
+    learned: "Known",
+    notLearned: "Unknown",
+    tapHint: "tap a letter · mark / unmark",
+    flipHint: "tap · flip",
+    arrowHint: "← arrows or tap the card",
+    markBtn: "+ Mark as learned",
+    unmarkBtn: "✓ Known · remove",
+    familiar: "✓ Familiar",
+    langLabel: "EN",
+  },
+  fra: {
+    title: "Alphabet arménien · 38 lettres",
+    know: "Sus",
+    left: "Restant",
+    progress: "Progrès",
+    table: "Grille",
+    cards: "Cartes",
+    all: "Tous",
+    learned: "Sus",
+    notLearned: "Inconnu",
+    tapHint: "appuie sur une lettre · cocher / décocher",
+    flipHint: "appuie · retourner",
+    arrowHint: "← flèches ou appuie sur la carte",
+    markBtn: "+ Marquer comme appris",
+    unmarkBtn: "✓ Sus · retirer",
+    familiar: "✓ Familière",
+    langLabel: "FR",
+  },
+};
 
 const CSS = `
   @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap');
@@ -122,6 +179,25 @@ const CSS = `
     box-shadow: 0 0 14px rgba(200,134,10,0.13);
   }
 
+  .lang-btn {
+    background: transparent;
+    border: 1px solid rgba(200,134,10,0.28);
+    color: #9a7040;
+    padding: 0.3rem 0.7rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+    border-radius: 1px;
+  }
+  .lang-btn:hover { color: #c8a06a; border-color: rgba(200,134,10,0.5); }
+  .lang-btn.active {
+    border-color: #c8860a;
+    color: #e8a830;
+    background: rgba(200,134,10,0.1);
+  }
+
   .card-scene { width: min(310px, 84vw); height: 230px; perspective: 1000px; cursor: pointer; }
   .card-inner {
     width: 100%; height: 100%;
@@ -174,6 +250,9 @@ const CSS = `
 `;
 
 export default function App() {
+  const [lang, setLang] = useState("rus");
+  const t = TRANSLATIONS[lang];
+
   const [learnedSet, setLearnedSet] = useState(() => {
     const s = new Set();
     ALL_LETTERS.forEach((l, i) => {
@@ -213,6 +292,8 @@ export default function App() {
   function goNext() { setFlipped(false); setTimeout(() => setCardIdx(i => (i+1) % filtered.length), 210); }
   function goPrev() { setFlipped(false); setTimeout(() => setCardIdx(i => (i-1+filtered.length) % filtered.length), 210); }
 
+  const transcription = card ? card[lang] : "";
+
   return (
     <div style={{
       minHeight:"100vh",
@@ -222,6 +303,15 @@ export default function App() {
       padding:"2rem 1rem 5rem",
     }}>
       <style>{CSS}</style>
+
+      {/* LANGUAGE SWITCHER */}
+      <div style={{display:"flex", justifyContent:"flex-end", maxWidth:780, margin:"0 auto 1rem", gap:"0.4rem"}}>
+        {["rus","eng","fra"].map(l => (
+          <button key={l} className={`lang-btn ${lang===l?"active":""}`} onClick={() => setLang(l)}>
+            {TRANSLATIONS[l].langLabel}
+          </button>
+        ))}
+      </div>
 
       {/* HEADER */}
       <div style={{textAlign:"center", marginBottom:"2rem"}}>
@@ -234,7 +324,7 @@ export default function App() {
           <span style={{color:"#c8860a", opacity:0.7}}>✦</span>
         </div>
         <div style={{fontStyle:"italic", color:"#c8a06a", fontSize:"1rem", letterSpacing:"0.06em", marginTop:"0.3rem"}}>
-          Армянский алфавит · 38 букв
+          {t.title}
         </div>
         <div style={{width:140, height:1, background:"linear-gradient(90deg,transparent,#c8860a,transparent)", margin:"0.9rem auto 0"}} />
       </div>
@@ -242,9 +332,9 @@ export default function App() {
       {/* STATS */}
       <div style={{display:"flex", justifyContent:"center", marginBottom:"1.4rem"}}>
         {[
-          [learnedCount, "Знаю"],
-          [LETTERS.length - learnedCount, "Осталось"],
-          [pct+"%", "Прогресс"]
+          [learnedCount, t.know],
+          [LETTERS.length - learnedCount, t.left],
+          [pct+"%", t.progress]
         ].map(([n,l], i) => (
           <div key={i} style={{
             textAlign:"center", padding:"0 1.6rem",
@@ -263,7 +353,7 @@ export default function App() {
 
       {/* MODE TABS */}
       <div style={{display:"flex", justifyContent:"center", gap:"0.5rem", marginBottom:"0.8rem", flexWrap:"wrap"}}>
-        {[["grid","Таблица"],["flashcard","Карточки"]].map(([m,label]) => (
+        {[["grid", t.table],["flashcard", t.cards]].map(([m,label]) => (
           <button key={m} className={`tab-btn ${mode===m?"active":""}`}
             onClick={() => { setMode(m); setCardIdx(0); setFlipped(false); }}>{label}</button>
         ))}
@@ -271,7 +361,7 @@ export default function App() {
 
       {/* FILTER TABS */}
       <div style={{display:"flex", justifyContent:"center", gap:"0.5rem", marginBottom:"1.6rem", flexWrap:"wrap"}}>
-        {[["all","Все"],["learned","Знаю"],["new","Не знаю"]].map(([f,label]) => (
+        {[["all", t.all],["learned", t.learned],["new", t.notLearned]].map(([f,label]) => (
           <button key={f} className={`tab-btn ${filter===f?"active":""}`}
             onClick={() => { setFilter(f); setCardIdx(0); setFlipped(false); }}>{label}</button>
         ))}
@@ -280,11 +370,8 @@ export default function App() {
       {/* GRID */}
       {mode === "grid" && (
         <>
-          <div style={{
-            textAlign:"center", marginBottom:"1rem",
-            fontSize:"0.78rem", color:"#5a4020", letterSpacing:"0.08em"
-          }}>
-            нажми на букву · отметить / снять отметку
+          <div style={{textAlign:"center", marginBottom:"1rem", fontSize:"0.78rem", color:"#5a4020", letterSpacing:"0.08em"}}>
+            {t.tapHint}
           </div>
           <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(78px,1fr))", gap:"0.6rem", maxWidth:780, margin:"0 auto"}}>
             {filtered.map((l) => (
@@ -292,7 +379,7 @@ export default function App() {
                 key={l.idx}
                 className={`gcard ${l.learned ? "learned" : "notlearned"} ${popIdx === l.idx ? "pop" : ""}`}
                 onClick={() => toggleLearned(l.idx)}
-                title={l.learned ? "Убрать из выученных" : "Отметить как выученную"}
+                title={l.learned ? t.unmarkBtn : t.markBtn}
               >
                 {!l.learned && <div className="check-hint">+</div>}
                 {l.learned && (
@@ -302,14 +389,14 @@ export default function App() {
                   {l.small}
                 </div>
                 <div style={{fontSize:"0.76rem", color: l.learned ? "#c8a06a" : "#5a4020", letterSpacing:"0.03em"}}>
-                  {l.rus}
+                  {l[lang]}
                 </div>
               </div>
             ))}
           </div>
           <div style={{display:"flex", justifyContent:"center", gap:"1.5rem", marginTop:"1.5rem", fontSize:"0.83rem", color:"#7a6040"}}>
-            <span><span style={{color:"#e8a830"}}>●</span> Знаю ({learnedCount})</span>
-            <span><span style={{color:"#3a2810"}}>●</span> Не знаю ({LETTERS.length - learnedCount})</span>
+            <span><span style={{color:"#e8a830"}}>●</span> {t.know} ({learnedCount})</span>
+            <span><span style={{color:"#3a2810"}}>●</span> {t.notLearned} ({LETTERS.length - learnedCount})</span>
           </div>
         </>
       )}
@@ -319,7 +406,7 @@ export default function App() {
         <div style={{display:"flex", flexDirection:"column", alignItems:"center", gap:"1.4rem"}}>
           <div style={{display:"flex", justifyContent:"space-between", width:"min(310px,84vw)", fontSize:"0.83rem"}}>
             <span style={{color:"#9a7040"}}>{safeCardIdx+1} / {filtered.length}</span>
-            {card.learned && <span style={{color:"#c8860a"}}>✓ Знакомая</span>}
+            {card.learned && <span style={{color:"#c8860a"}}>{t.familiar}</span>}
           </div>
 
           <div className="card-scene" onClick={() => setFlipped(f=>!f)}>
@@ -348,7 +435,7 @@ export default function App() {
                   textShadow: card.learned ? "0 0 60px rgba(200,134,10,0.45)" : "none"
                 }}>{card.small}</div>
                 <div style={{position:"absolute", bottom:13, fontSize:"0.68rem", color:"rgba(200,160,100,0.25)", letterSpacing:"0.1em"}}>
-                  нажми · перевернуть
+                  {t.flipHint}
                 </div>
               </div>
 
@@ -371,7 +458,7 @@ export default function App() {
                   }}>✦</span>
                 ))}
                 <div style={{fontSize:"2.8rem", color:"#e8a830", marginBottom:"0.3rem", textShadow:"0 0 40px rgba(200,134,10,0.4)"}}>{card.arm}</div>
-                <div style={{fontSize:"2.4rem", color:"#c8a06a", letterSpacing:"0.08em", fontStyle:"italic"}}>{card.rus}</div>
+                <div style={{fontSize:"2.4rem", color:"#c8a06a", letterSpacing:"0.08em", fontStyle:"italic"}}>{transcription}</div>
               </div>
             </div>
           </div>
@@ -381,18 +468,18 @@ export default function App() {
             className={`learn-btn ${card.learned ? "is-learned" : ""} ${popIdx === card.idx ? "pop" : ""}`}
             onClick={() => toggleLearned(card.idx)}
           >
-            {card.learned ? "✓ Знаю · убрать" : "+ Отметить как выученную"}
+            {card.learned ? t.unmarkBtn : t.markBtn}
           </button>
 
           <div style={{display:"flex", alignItems:"center", gap:"2rem"}}>
             <button className="navbtn" onClick={goPrev}>←</button>
             <span style={{color:"#7a5c30", fontSize:"0.82rem", letterSpacing:"0.1em", textTransform:"uppercase", minWidth:60, textAlign:"center"}}>
-              {card.rus}
+              {transcription}
             </span>
             <button className="navbtn" onClick={goNext}>→</button>
           </div>
 
-          <div style={{color:"#4a3820", fontSize:"0.78rem", letterSpacing:"0.08em"}}>← стрелки или нажми на карточку</div>
+          <div style={{color:"#4a3820", fontSize:"0.78rem", letterSpacing:"0.08em"}}>{t.arrowHint}</div>
         </div>
       )}
     </div>
