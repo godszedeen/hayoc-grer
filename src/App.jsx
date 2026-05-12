@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const INITIAL_LEARNED = ["а","и","у","с","р","т","к","н","м","щ","э","л"];
+const INITIAL_LEARNED = [];
 
 const ALL_LETTERS = [
   { arm: "Աա", small: "ա", rus: "а" },
